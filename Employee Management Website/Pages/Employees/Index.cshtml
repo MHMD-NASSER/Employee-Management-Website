@@ -1,0 +1,80 @@
+﻿@page
+@model Employee_Management_Website.Pages.Employees.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center mt-5 mb-5">EMPLOYEES LIST</h1>
+
+<hr/>
+
+<a asp-page="Create" class="btn btn-primary btn-sm" role="button">Create New</a>
+<hr />
+<div class="mt-5">
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].PersonalPhoto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].Birthdate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].Phone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].EmploymentDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].Governorate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee[0].isProbation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Employee)
+            {
+                <tr>
+                    <td>
+                        <div class="text-center">
+                            <img src="@Url.Content(item.PersonalPhoto)" class="rounded-circle" style="width: 100px;height: 100px;object-fit: cover;" alt="ProfileImg" />
+                        </div>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Birthdate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmploymentDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Governorate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.isProbation)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm" role="button">Edit</a> |
+                        <a asp-page="/EmployeeJobs/Index" asp-route-id="@item.Id" class="btn btn-warning btn-sm" role="button">Check Jobs</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" role="button">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

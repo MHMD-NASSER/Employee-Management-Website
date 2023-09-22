@@ -1,0 +1,15 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4 fw-bold">Welcome To Employee & Job Management Website</h1>
+    
+</div>
+<div class="container mt-5 text-center">
+    <a asp-page="/Employees/Index" class="btn btn-outline-warning btn-xxl">Manage Employees</a> |
+    <a asp-page="/Jobs/Index" class="btn btn-danger btn-xxl">Manage Jobs</a>
+</div>
+

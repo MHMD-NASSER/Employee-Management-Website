@@ -1,0 +1,95 @@
+﻿@page
+@model Employee_Management_Website.Pages.EmployeeJobs.IndexModel
+@{
+}
+
+<h1 class="mb-5 fw-bold text-center">EMPLOYEE JOBS</h1>
+
+<div class="row mb-5">
+    <div class="col-md-2 border-end border-3">
+        <img src="@Url.Content(Model.Employee.PersonalPhoto)" style="width: 100px;height: 100px;border-radius: 50%;object-fit: cover;" class="preview-image" alt="Image" />
+    </div>
+    <div class="col-md-3 border-start border-3">
+        <h3 class="fw-bold text-center">id: @Html.DisplayFor(model => model.Employee.Id)</h3>
+        <h3 class="fw-bold text-center">@Html.DisplayFor(model => model.Employee.Name)</h3>
+    </div>
+</div>
+   
+<hr />
+
+<div class="row mb-3 mt-3">
+
+    <div class="col-md-6 border-end border-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.EmployeeJobs != null)
+                {
+                    @foreach (var item in Model.EmployeeJobs)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Category</td>
+                            <td>
+                                <form method="post" asp-page-handler="Delete">
+                                    <input type="hidden" asp-for="Eid" />
+                                    <input type="hidden" name="Jid" value="@item.Id" />
+                                    <button type="submit" class="btn btn-danger">delete</button>
+                                </form>
+                            </td>
+                        </tr>
+
+
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6 border-start border-3">
+        <h1 class="mb-3 mt-3 text-center">Adding jobs</h1>
+        <form method="post" asp-page-handler="AddJob">
+            <input type="hidden" asp-for="Eid" />
+            <label for="SelectedJob">Select a Job:</label>
+            @if (Model.jobs != null)
+            {
+                <select asp-for="SelectedJob" class="form-control">
+                    @foreach (var Item in Model.jobs)
+                    {
+                        <option value="@Item.Name">@Item.Name</option>
+                    }
+                </select>
+            }
+            <div class="container mt-3">
+                <button type="submit" class="btn btn-primary">Enroll</button>
+            </div>
+            
+        </form>
+    </div>
+
+</div>
+<hr />
+<div class="mt-3 border-start border-3">
+    <a asp-page="/Employees/Index" class="btn btn-secondary" role="button">Go Back</a>
+</div>
+
+
+
+
+
+
+
+
+
+

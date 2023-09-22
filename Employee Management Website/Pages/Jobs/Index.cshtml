@@ -1,0 +1,133 @@
+﻿@page
+@model Employee_Management_Website.Pages.Jobs.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <!-- Left Side: Jobs List -->
+        <div class="col-md-6 border-end border-3">
+            <div class="fw-bold text-center mb-5">JOBS LIST</div>
+            <p>
+                <a asp-page="Create" class="btn btn-primary btn-sm" role="button">Create New</a>
+                <!--
+                <button type="button" class="btn btn-primary" id="openCreateJobModal">
+                    Create Job
+                </button>
+                -->
+
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Job[0].Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Job[0].Category)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Job)
+                    {
+                        <tr data-job-id="@item.Id" class="job-item">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm" role="button">Edit</a> |
+                               
+                                <a asp-page="./Index" asp-route-JobId="@item.Id" id="showEmployeesBtn_@item.Id" class="btn btn-success btn-sm ">View Employees</a> |
+                                
+                                <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" role="button">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- Right Side: Job's Employees -->
+        <div class="col-md-6 border-start border-3">
+            <div class="fw-bold text-center mb-5">JOB'S EMPLOYEES</div>
+            <div class="row mb-3 mt-3">
+                <div class="col-md-2">
+                    <h2> @Model.JobId</h2>
+                </div> 
+                <div class="col-md">
+                    <h2> @Model.JobName</h2>
+                </div>
+            </div>
+            <div id="job-employees" class="job-employees">
+                @if (Model.Employees != null)
+                {
+                    <div class="employee-list" id="employeesTable">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            @foreach (var employee in Model.Employees)
+                            {
+                                <tr>
+                                    <td>@employee</td>
+                                </tr>
+                            }
+                        </table>
+                        <a id="hideEmployeesBtn" class="btn btn-danger" asp-route-id="">Hide</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center">
+                        <h2>No Job Selected</h2>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+ 
+    </div>
+</div>
+
+
+<script>
+    function toggleEmployees() {
+        var employeesTable = document.getElementById("employeesTable");
+        if (employeesTable.style.display === "none") {
+            employeesTable.style.display = "block";
+        } else {
+            employeesTable.style.display = "none";
+
+        }
+    }
+
+    @foreach (var job in Model.Job)
+    {
+        <text>
+            document.getElementById("showEmployeesBtn_@job.Id").addEventListener("click", function () {
+                toggleEmployees();
+            });
+        </text>
+
+    }
+    document.getElementById("hideEmployeesBtn").addEventListener("click", function () {
+        toggleEmployees();
+    });
+
+</script>
+
+
+
+

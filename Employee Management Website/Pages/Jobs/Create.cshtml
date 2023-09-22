@@ -1,0 +1,40 @@
+﻿@page
+@model Employee_Management_Website.Pages.Jobs.CreateModel
+@using static Employee_Management_Website.Models.Job;
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="fw-bold text-center mb-5">CREATE NEW JOB</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Job.Name" class="control-label"></label>
+                <input asp-for="Job.Name" class="form-control" />
+                <span asp-validation-for="Job.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Job.Category" class="control-label"></label>
+                <select asp-for="Job.Category" class="form-control mb-3">
+                    <option value="">Select Category</option>
+                    @foreach (CategoryType category in Enum.GetValues(typeof(CategoryType)))
+                    {
+                        <option value="@category">@category</option>
+                    }
+                </select>
+                <span asp-validation-for="Job.Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary" role="button">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
